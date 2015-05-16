@@ -44,11 +44,13 @@ public class TestSocketIO : MonoBehaviour
 		//socket.On("boop", TestBoop);
 		socket.On("error", TestError);
 		socket.On("close", TestClose);
-		
+        StartCoroutine("AddEventEmitter");
 	}
 
 
-	
+    
+
+
 	public void TestOpen(SocketIOEvent e)
 	{
 		Debug.Log("[SocketIO] Open received: " + e.name + " " + e.data);

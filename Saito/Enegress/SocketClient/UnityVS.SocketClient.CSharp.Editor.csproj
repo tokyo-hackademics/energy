@@ -102,6 +102,7 @@
     <Compile Include="Assets\SocketIO\JSONObject\Editor\JSONChecker.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\Lightning Particles\Lightning Readme.txt" />
     <None Include="Assets\SocketIO\JSONObject\readme.txt" />
     <None Include="Assets\SocketIO\Readme.txt" />
   </ItemGroup>

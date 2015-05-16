@@ -71,4 +71,11 @@ public class Client : MonoBehaviour
     {
         Debug.Log("[SocketIO] Close received: " + e.name + " " + e.data);
     }
+
+    public void SendOn(string query){
+        Debug.Log(query);
+        if (query == "all") {
+            socket.On("all", TestAll);
+        }
+    }
 }

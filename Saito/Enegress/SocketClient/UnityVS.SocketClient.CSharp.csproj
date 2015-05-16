@@ -54,10 +54,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\AimCamera.cs" />
+    <Compile Include="Assets\Scripts\AllReqClick.cs" />
     <Compile Include="Assets\Scripts\BarSetter.cs" />
     <Compile Include="Assets\Scripts\CSVReader.cs" />
     <Compile Include="Assets\Scripts\Client.cs" />
+    <Compile Include="Assets\Scripts\ClientJPN.cs" />
+    <Compile Include="Assets\Scripts\JPNReqClick.cs" />
     <Compile Include="Assets\Scripts\MiniJSON.cs" />
+    <Compile Include="Assets\Scripts\kmeans\Agent.cs" />
+    <Compile Include="Assets\Scripts\kmeans\Menu.cs" />
     <Compile Include="Assets\SocketIO\JSONObject\JSONObject.cs" />
     <Compile Include="Assets\SocketIO\JSONObject\JSONTemplates.cs" />
     <Compile Include="Assets\SocketIO\JSONObject\VectorTemplates.cs" />
@@ -140,6 +146,7 @@
     <Compile Include="Assets\SocketIO\WebsocketSharp\WebSocketStream.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\Lightning Particles\Lightning Readme.txt" />
     <None Include="Assets\SocketIO\JSONObject\readme.txt" />
     <None Include="Assets\SocketIO\Readme.txt" />
   </ItemGroup>
