@@ -42,7 +42,7 @@ namespace SocketIO
 	{
 		#region Public Properties
 
-        private string url = "ws://192.168.3.38:8080/socket.io/?EIO=4&transport=websocket";
+        public string url = "ws://192.168.3.38:8080/socket.io/?EIO=4&transport=websocket";
 		public bool autoConnect = true;
 		public int reconnectDelay = 5;
 		public float ackExpirationTime = 1800f;

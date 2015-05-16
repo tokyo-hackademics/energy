@@ -7,51 +7,35 @@ public class CSVReader : MonoBehaviour
 {
 	
 	/*** Field ***/
-    private TextAsset csvFile_joint, csvFile_ori;    //関節位置、関節角度のそれぞれのファイル
-	
+    private TextAsset csvFile;
+
 	public string[,] grid;
-    public string[,] grid_ori;
-	
-	public int joint_row;  //関節位置のCSVファイルが何行あるか
-    public int ori_row;    //関節方向のCSVファイルが何行あるか
-	
 	public int readCSVrow=1;
-    public int readCSVrow_ori = 1;
-	
+    public int row=-0,col=0;
+    
 
 	/**********methods************/	
 	public void set_csvFile_joint(TextAsset t){
-		this.csvFile_joint = t;
-	}
-
-	public void set_csvFile_ori(TextAsset t){
-		this.csvFile_ori = t;
+		this.csvFile = t;
 	}
 	
 	public void Start()
 	{
         
 		//Setup
-        /*
-		TextAsset t = Resources.Load("ThrowData/Pos_minami_sample") as TextAsset;
+		TextAsset t = Resources.Load("Datas/testdata_ori") as TextAsset;
         set_csvFile_joint(t);
 	    
         initGrids();
 		DebugOutputGrid(grid);
     	StartCoroutine(WaitForSecond(1.0f));
-		*/
 	}
 	
 	public void initGrids(){
-		grid = SplitCsvGrid(csvFile_joint.text);
-        grid_ori = SplitCsvGrid(csvFile_ori.text);
-
-        readCSVrow=1;
-        readCSVrow_ori = 1;
-		joint_row = 1+grid.GetUpperBound(1);
-		ori_row = 1+grid_ori.GetUpperBound(1);
-		Debug.Log("size = " + (1+ grid.GetUpperBound(0)) + "," + (1 + grid.GetUpperBound(1))); 
- 		Debug.Log("size_ori = " + (1+ grid_ori.GetUpperBound(0)) + "," + (1 + grid_ori.GetUpperBound(1)));
+		grid = SplitCsvGrid(csvFile.text);
+        Debug.Log("size = " + grid.GetUpperBound(0) + "," + grid.GetUpperBound(1));
+        col = grid.GetUpperBound(0)-1;
+        row = grid.GetUpperBound(1)-1;
 	}
 
     private void Update(){

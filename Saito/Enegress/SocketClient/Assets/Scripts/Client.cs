@@ -29,29 +29,33 @@
 using System.Collections;
 using UnityEngine;
 using SocketIO;
+using MiniJSON;
 
 public class Client : MonoBehaviour
 {
     private SocketIOComponent socket;
+    private GameObject barsetter;
 
     public void Start()
     {
+        barsetter = GameObject.Find("BarSetter");
         GameObject go = GameObject.Find("SocketIO");
         socket = go.GetComponent<SocketIOComponent>();
 
         socket.On("open", TestOpen);
-        socket.On("news", TestOpen);
-        socket.On("error", TestError);
-        socket.On("close", TestClose);
+        socket.On("all", TestAll);
+        //socket.On("news", TestOpen);
+        //socket.On("error", TestError);
+        //socket.On("close", TestClose);
 
-        StartCoroutine("BeepBoop");
     }
 
-    void OnGUI() { 
-    
-    
+    public void TestAll(SocketIOEvent e)
+    {
+        Debug.Log("[SocketIO] All received: " + e.name + " " + e.data);
+        barsetter.SendMessage("SetBars",e.data);
+        
     }
-
 
     public void TestOpen(SocketIOEvent e)
     {
