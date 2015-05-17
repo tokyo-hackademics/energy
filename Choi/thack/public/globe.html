@@ -1,0 +1,205 @@
+<!DOCTYPE HTML>
+<html lang="en">
+  <head>
+    <title>Globe View</title>
+    <meta charset="utf-8">
+    <style type="text/css">
+      html {
+        height: 100%;
+      }
+      body {
+        margin: 0;
+        padding: 0;
+        background: #000000 url(/loading.gif) center center no-repeat;
+        color: #ffffff;
+        font-family: 'Lato', sans-serif;
+        font-weight: 100;
+        font-size: 13px;
+        line-height: 20px;
+        height: 100%;
+        width: 100%;
+      }
+      #container{
+        width: 100%;
+        height:100%;
+      }
+
+      #info {
+
+        font-size: 11px;
+        position: absolute;
+        bottom: 5px;
+        background-color: rgba(0,0,0,0.8);
+        border-radius: 3px;
+        right: 10px;
+        padding: 10px;
+
+      }
+
+      #currentInfo {
+        width: 270px;
+        position: absolute;
+        left: 20px;
+        top: 63px;
+
+        background-color: rgba(0,0,0,0.2);
+
+        border-top: 1px solid rgba(255,255,255,0.4);
+        padding: 10px;
+      }
+
+      a {
+        color: #aaa;
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+
+      .bull {
+        padding: 0 5px;
+        color: #555;
+      }
+
+      #title {
+        position: absolute;
+        top: 20px;
+        width: 270px;
+        left: 20px;
+        background-color: rgba(0,0,0,0.8);
+        border-radius: 3px;
+        font-size: 24px;
+        padding: 10px;
+      }
+
+    </style>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+  </head>
+  <body>
+
+  <div id="container"></div>
+
+  <div id="title">
+    Globe View <button id="showJpn">Japan</button> <button id="showAll">All</button>
+  </div>
+
+  <script type="text/javascript" src="/Detector.js"></script>
+  <script type="text/javascript" src="/three.min.js"></script>
+  <script type="text/javascript" src="/Tween.js"></script>
+  <script type="text/javascript" src="/globe.js"></script>
+  <script src="//cdn.socket.io/socket.io-1.3.5.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+  <script type="text/javascript">
+
+    if(!Detector.webgl){
+      Detector.addGetWebGLMessage();
+    } else {
+      
+      var container = document.getElementById('container');
+      var globe = new DAT.Globe(container);
+
+      console.log(globe);
+      
+      var storedData = null
+      var storedJpnData = null
+      
+      var drawData = function(data){
+        var records = []
+        for(var i = 0; i < data.length; i++){
+          var record = data[i]
+          records.push(record.lat)
+          records.push(record.lng)
+          records.push(record.solar/100)
+        }
+        var scene = globe.scene
+        var objs = globe.points
+        scene.remove(objs)
+        
+        globe.drawData(records, {format: 'magnitude', animated: false});
+        globe.render()
+      }
+      var state = 'all'
+      
+      var socket = io.connect('http://localhost:8080')
+            
+          TWEEN.start();
+          globe.animate();
+          
+          socket.on('update', function(data){
+            toastr.info('Updated : ' + data.data.user_name)
+            if(storedData == null) return
+            var updatedOne = data.data
+            var isUpdated = false
+            for(var i = 0; i < storedData.length; i++){
+              var one = storedData[i]
+              if(one.device_id == updatedOne.device_id){
+                storedData[i] = updatedOne
+                isUpdated = true
+                break
+              }
+            }
+            if(!isUpdated){
+              storedData.unshift(updatedOne)
+            }
+            
+            if(state == 'all') drawData(storedData)
+            
+            if(state == 'jpn'){
+              
+              if(storedJpnData == null) return
+              var updatedOne = data.data
+              var isUpdated = false
+              for(var i = 0; i < storedJpnData.length; i++){
+                var one = storedJpnData[i]
+                if(one.device_id == updatedOne.device_id){
+                  storedJpnData[i] = updatedOne
+                  isUpdated = true
+                  break
+                }
+              }
+              if(!isUpdated){
+                storedJpnData.unshift(updatedOne)
+              }
+              
+              drawData(storedJpnData)
+            }
+          })
+          
+          socket.on('all', function(data){
+            storedData = data.data
+            state = 'all'
+            
+            drawData(storedData)
+            globe.rotateCam(Math.PI/10*1,Math.PI/10*1,1000)
+            document.body.style.backgroundImage = 'none'; // remove loading
+          })
+          
+          showAll.onclick=function(){
+            drawData(storedData)
+            state = 'all'
+            
+            globe.rotateCam(Math.PI/10*1,Math.PI/10*1,1000)
+          }
+          
+          showJpn.onclick = function(){
+            console.log('req jpn')
+            socket.emit('jpn', {})
+          }
+          
+          socket.on('jpn', function(data){
+            console.log('got jpn', data)
+            storedJpnData = data.data
+            state = 'jpn'
+            
+            drawData(data.data)
+            globe.rotateCam(Math.PI/10*2.7,Math.PI/10*1.6,700)
+           
+          })
+        }
+
+  </script>
+
+  </body>
+
+</html>

@@ -1,0 +1,110 @@
+<!doctype html>
+<html ng-app="dashboard">
+<head>
+    <meta charset="utf-8">
+    <title>Enegres</title>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+      <style>
+        body, label{
+          font-family: "Lato";
+          font-weight: 300
+        }
+        h1{
+          font-family: "Lato";
+          font-weight: 100
+        }
+      </style>
+</head>
+<body>
+  
+  <div ng-controller="MainController as main">
+    <div class="container">
+      <div class="col-sm-10 col-sm-offset-1">
+        <h1>Enegres</h1>
+      </div>
+    </div>
+    
+    <div style="100%">
+      <iframe src="/globe" width="100%" height="400" frameborder="0"></iframe>
+    </div>
+    
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-10 col-sm-offset-1">
+          <table class="table table-condensed table-striped">
+            <thead>
+              <tr>
+                <td>Device ID</td>
+                <td>User Name</td>
+                <td>Coordinate</td>
+                <td>Solar Amount</td>
+                <td>Created At</td>
+                <td>Control</td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="post in main.posts">
+                <td>{{post.device_id}}</td>
+                <td>{{post.user_name}}</td>
+                <td>{{post.lat + ', '+ post.lng}}</td>
+                <td>{{post.solar}}</td>
+                <td>{{post.created_at}}</td>
+                <td>
+                  <button ng-click="main.destroy(post._id)" class="btn btn-danger">Delete</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6 col-sm-offset-3">
+          <div>
+            <label for="">Device Id(Int)</label>
+            <input class="form-control" ng-model="main.device_id" type="text">
+          </div>
+          
+          <div>
+            <label for="">User Name</label>
+            <input class="form-control" ng-model="main.user_name" type="text">
+          </div>
+          
+          <div>
+            <label for="">Solar amount(Float)</label>
+            <input class="form-control" ng-model="main.solar" type="text">
+          </div>
+          
+          <div>
+            <label for="">Latitude(Float)</label>
+            <input class="form-control" ng-model="main.lat" type="text">
+          </div>
+          
+          <div>
+            <label for="">Longitude(Float)</label>
+            <input class="form-control" ng-model="main.lng" type="text">
+          </div>
+          <button ng-click="main.save()">Store Data</button>
+  
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="https://cdn.socket.io/socket.io-1.3.5.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+<script>
+  /* global io */
+  var socket = io.connect('http://localhost:8080')
+  
+  socket.on('all', function (data) {
+    console.log(data)
+    socket.emit('test', { my: 'data' })
+  })
+  
+  socket.on('jpn', function (data) {
+    console.log(data)
+  })
+</script>
+<script src="/app.js"></script>
+
+</body>
+</html>
