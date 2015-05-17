@@ -60,6 +60,7 @@
     <Compile Include="Assets\Scripts\CSVReader.cs" />
     <Compile Include="Assets\Scripts\Client.cs" />
     <Compile Include="Assets\Scripts\ClientJPN.cs" />
+    <Compile Include="Assets\Scripts\IZMReqClick.cs" />
     <Compile Include="Assets\Scripts\JPNReqClick.cs" />
     <Compile Include="Assets\Scripts\MiniJSON.cs" />
     <Compile Include="Assets\Scripts\kmeans\Agent.cs" />

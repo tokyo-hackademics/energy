@@ -82,6 +82,7 @@ public class Menu : MonoBehaviour {
             float lat = data_one.GetField("lat").n;
             float lng = -data_one.GetField("lng").n;
             float solar = data_one.GetField("solar").n;
+            string username = data_one.GetField("user_name").str;
 
             Debug.Log("lat,lng,solar=(" + lat + "," + lng + "," + solar + ")");
 
@@ -125,7 +126,11 @@ public class Menu : MonoBehaviour {
 
             // プレハブからインスタンスを生成
             dataList[i] = Instantiate(clone, clone.transform.position, Quaternion.identity) as GameObject;
-            dataList[i].name = counts + dataList[i].name;
+            if (username == "izumida")
+            {
+                dataList[i].transform.position = new Vector3(dataList[i].transform.position.x, dataList[i].transform.position.y/10.0f, dataList[i].transform.position.z);
+            }
+            else dataList[i].name = counts + dataList[i].name;
             dataList[i].transform.parent = parentObject.transform;
 
             //if (bs.isWorld) agent.particleCreate();

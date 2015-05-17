@@ -92,6 +92,14 @@ public class ClientJPN : MonoBehaviour
 
     }
 
+    public void TestIZM(SocketIOEvent e)
+    {
+        Debug.Log("[SocketIO] IZM received: " + e.name + " " + e.data);
+        Debug.Log(e.data);
+        barsetter.SendMessage("SetBars", e.data);
+
+    }
+
     public void TestOpen(SocketIOEvent e)
     {
         Debug.Log("[SocketIO] Open received: " + e.name + " " + e.data);
@@ -119,6 +127,10 @@ public class ClientJPN : MonoBehaviour
         {
             socket.On("jpn", TestJPN);
             socket.Emit("jpn");
+        }
+        else if (query == "posts") {
+            socket.On("posts", TestIZM);
+            socket.Emit("posts");
         }
     }
 }
