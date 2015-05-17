@@ -45,6 +45,7 @@ public class ClientJPN : MonoBehaviour
         JPNObject.transform.position = new Vector3(34,-0.3f,-135);
         maincam = GameObject.Find("Main Camera");
         maincam.SendMessage("DetectPart", "JAPAN");
+        maincam.SendMessage("SetDistance", 12.0f);
 
 
         GameObject go = GameObject.Find("SocketIO");
@@ -95,8 +96,8 @@ public class ClientJPN : MonoBehaviour
     public void TestIZM(SocketIOEvent e)
     {
         Debug.Log("[SocketIO] IZM received: " + e.name + " " + e.data);
-        Debug.Log(e.data);
-        barsetter.SendMessage("SetBars", e.data);
+        //Debug.Log(e.data);
+        barsetter.SendMessage("SetIzumida", e.data);
 
     }
 

@@ -203,23 +203,7 @@ public class Agent : MonoBehaviour {
                     //Debug.Log("i,a = "+i+","+a );
                     alr[a].material = new Material(Shader.Find("Legacy Shaders/Diffuse"));
                     Color c;
-                    switch(i){
-                        case 0:
-                            c = Color.cyan;
-                            break;
-                        case 1:
-                            c = Color.green;
-                            break;
-                        case 2:
-                            c = Color.blue;
-                            break;
-                        case 3:
-                            c = Color.yellow;
-                            break;
-                        default:
-                            c = Color.yellow;
-                            break;
-                    }
+                    c = Color.blue;
                     alr[a].SetColors(c, c);
                     alr[a].SetWidth(0.02f, 0.04f * ((GameObject)groupLists[i][a]).transform.position.y);
                     alr[a].SetVertexCount(2);

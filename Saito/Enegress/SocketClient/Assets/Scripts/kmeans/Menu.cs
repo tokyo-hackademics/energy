@@ -19,9 +19,9 @@ public class Menu : MonoBehaviour {
 
 
     private int counts = 0;
-    private float raiselevel = 0.3f;
-    private float scalelevel = 0.5f;
-    GameObject parentObject;
+    public float raiselevel = 0.3f;
+    public float scalelevel = 0.5f;
+    public GameObject parentObject;
     private float min_lat = 180.0f;
     private float min_lng = 180.0f;
     private float max_lat = -180.0f;
@@ -128,7 +128,11 @@ public class Menu : MonoBehaviour {
             dataList[i] = Instantiate(clone, clone.transform.position, Quaternion.identity) as GameObject;
             if (username == "izumida")
             {
-                dataList[i].transform.position = new Vector3(dataList[i].transform.position.x, dataList[i].transform.position.y/10.0f, dataList[i].transform.position.z);
+                Debug.Log("izumida in!!!!!!!!!!!");
+                dataList[i].transform.position = new Vector3(dataList[i].transform.position.x, dataList[i].transform.position.y, dataList[i].transform.position.z);
+                dataList[i].name = "izumida";
+                //Material mat = dataList[i].GetComponent<Material>();
+                //mat.color = Color.red;
             }
             else dataList[i].name = counts + dataList[i].name;
             dataList[i].transform.parent = parentObject.transform;

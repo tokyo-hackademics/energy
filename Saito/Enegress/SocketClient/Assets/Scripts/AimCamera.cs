@@ -7,8 +7,8 @@ public class AimCamera : MonoBehaviour {
 	Vector3 f0Dir= Vector3.zero;
 	Vector3 upVal;
 	public float zoomDistance= 8.0F;
-	public float theta= 3.000F;
-	public float fai= -0.12F;
+	public float theta= 5.000F;
+	public float fai= -0.70F;
 	public float loc_x= 0.0F;
 	public float loc_y= 0.0F;
 	public float panWeight= 0.5F;
