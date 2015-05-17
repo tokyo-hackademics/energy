@@ -104,7 +104,7 @@ public class Menu : MonoBehaviour {
                 
                 scales[i] = solar * 0.2f;
                 
-                v = RotateXZ(v, lat + 90.0f, lng);
+                v = RotateXZ(v, -(lat + 90.0f), lng);
                 Vector3 pos = new Vector3(v[0], v[1], v[2]);
 
                 //clone.transform.localScale = new Vector3(1, solar, 1);
@@ -142,8 +142,8 @@ public class Menu : MonoBehaviour {
 
         if (bs.isWorld) { 
                 agent.particleCreateWorld(scales);
-                maincam.SendMessage("DetectPos",Vector3.zero);
-                maincam.SendMessage("SetDistance", 30.0f);
+                maincam.SendMessage("DetectPos",new Vector3(-0.1f,0.0f,-0.1f));
+                maincam.SendMessage("SetDistance", 40.0f);
 
         }
     }

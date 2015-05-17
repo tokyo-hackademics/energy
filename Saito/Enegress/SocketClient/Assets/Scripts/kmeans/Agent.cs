@@ -160,7 +160,10 @@ public class Agent : MonoBehaviour {
 			for (int j=0; j<menu.numberOfGroupe; j++) {
 				//dis[j]=Vector3.Distance (menu.dataList[i].GetComponent<Rigidbody>().position, menu.groupCenter[j].GetComponent<Rigidbody>().position);
                 Debug.Log(i+":"+menu.dataList.Length+":"+menu.size);
-                dis[j] = Vector3.Distance(menu.dataList[i].transform.position, menu.groupCenter[j].transform.position);
+                //
+                Vector3 mdi = new Vector3(menu.dataList[i].transform.position.x, 0.0f, menu.dataList[i].transform.position.z);
+                Vector3 mdj = new Vector3(menu.groupCenter[j].transform.position.x, 0.0f, menu.groupCenter[j].transform.position.z);
+                dis[j] = Vector3.Distance(mdi,mdj);
 			}
 			float min=dis[0] ; 
 			int mini=0 ;
