@@ -1,4 +1,16 @@
-# Energy
+# Eneforest
+
+## install
+```sh
+npm install
+```
+
+## run
+Run `server.js` with NodeJS
+
+``` sh
+node server.js
+```
 
 # Transaction
 
