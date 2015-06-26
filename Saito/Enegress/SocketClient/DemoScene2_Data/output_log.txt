@@ -12,7 +12,7 @@ Platform assembly: C:\00_workspace\energy\Saito\Enegress\SocketClient\DemoScene2
 Loading C:\00_workspace\energy\Saito\Enegress\SocketClient\DemoScene2_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
 Platform assembly: C:\00_workspace\energy\Saito\Enegress\SocketClient\DemoScene2_Data\Managed\UnityEngine.UI.dll (this message is harmless)
 Loading C:\00_workspace\energy\Saito\Enegress\SocketClient\DemoScene2_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
-- Completed reload, in  0.080 seconds
+- Completed reload, in  0.245 seconds
 desktop: 1366x768 50Hz; virtual: 1366x768 at 0,0
 <RI> Initializing input.
 <RI> Input initialized.

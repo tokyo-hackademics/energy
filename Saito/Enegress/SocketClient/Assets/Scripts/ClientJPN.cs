@@ -43,7 +43,7 @@ public class ClientJPN : MonoBehaviour
         barsetter = GameObject.Find("BarSetter");
         JPNObject = GameObject.Find("JAPAN");
         JPNObject.transform.position = new Vector3(34,-0.3f,-135);
-        maincam = GameObject.Find("Main Camera");
+        maincam = GameObject.Find("MainCamera");
         maincam.SendMessage("DetectPart", "JAPAN");
         maincam.SendMessage("SetDistance", 12.0f);
 
@@ -82,6 +82,8 @@ public class ClientJPN : MonoBehaviour
     public void TestAll(SocketIOEvent e)
     {
         Debug.Log("[SocketIO] All received: " + e.name + " " + e.data);
+        maincam.SendMessage("DetectPart", "Earth");
+        maincam.SendMessage("SetDistance", -35.0f);
         barsetter.SendMessage("SetBars",e.data);
         
     }

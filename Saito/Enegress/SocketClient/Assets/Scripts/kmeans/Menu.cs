@@ -140,10 +140,18 @@ public class Menu : MonoBehaviour {
             //if (bs.isWorld) agent.particleCreate();
         }
 
-        if (bs.isWorld) { 
+        if (bs.isWorld) {
+#if UNITY_ANDROID
+
+            agent.particleCreateWorld(scales);
+            //maincam.SendMessage("DetectPos", new Vector3(-0.1f, 0.0f, -0.1f));
+            maincam.SendMessage("SetDistance", -50.0f);
+#else
                 agent.particleCreateWorld(scales);
                 maincam.SendMessage("DetectPos",new Vector3(-0.1f,0.0f,-0.1f));
                 maincam.SendMessage("SetDistance", 40.0f);
+
+#endif
 
         }
     }

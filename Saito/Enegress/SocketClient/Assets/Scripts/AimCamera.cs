@@ -5,6 +5,7 @@ public class AimCamera : MonoBehaviour {
 	private Transform cam_target;
     public GameObject target;
 	Vector3 f0Dir= Vector3.zero;
+    Vector3 Androidf0Dir = Vector3.zero;
 	Vector3 upVal;
 	public float zoomDistance= 8.0F;
 	public float theta= 5.000F;
@@ -23,6 +24,8 @@ public class AimCamera : MonoBehaviour {
 	//For Get Screen Size
 	private int screenwidth,screenheight;
 
+    private bool isTouch = false;
+
 	
 	void Start(){
         target = GameObject.Find("target");
@@ -34,8 +37,8 @@ public class AimCamera : MonoBehaviour {
 	}
 	
 
-	void Update() {
-		if(Input.GetKey("z") && Input.GetMouseButton(0)) {
+	void LateUpdate() {
+		if(Input.GetMouseButton(0)) {
 			f0Dir= new Vector3(Input.GetAxis("Mouse X")*5.0F, -Input.GetAxis("Mouse Y")*5.0F, 0);
 		
 			if(	Input.GetKey("left alt")) {
@@ -52,13 +55,17 @@ public class AimCamera : MonoBehaviour {
 		} else if(Input.GetKey("right alt")){
 			//cam_target = GameObject.Find("ThirdCursor").transform;
 		} else {
+            if (!isTouch) {
+                Androidf0Dir = Vector3.zero;
+            }
+
 			f0Dir= Vector3.zero;
 			loc_x= 0.0F;
 			loc_y= 0.0F;
 		}
 		
-		theta+= Mathf.Deg2Rad*f0Dir.x*1;
-		fai+= -Mathf.Deg2Rad*f0Dir.y*1;
+		theta+= Mathf.Deg2Rad*(f0Dir.x+Androidf0Dir.x)*1;
+		fai+= -Mathf.Deg2Rad*(f0Dir.y+Androidf0Dir.y)*1;
 		
 		upVal.z= zoomDistance*Mathf.Cos(theta)*Mathf.Sin(fai+Mathf.PI/2);
 		upVal.x= zoomDistance*Mathf.Sin(theta)*Mathf.Sin(fai+Mathf.PI/2);
@@ -108,5 +115,13 @@ public class AimCamera : MonoBehaviour {
         this.zoomDistance = distance;
     }
 
+    public void RotateCamera(float[] f) 
+    {
+        Androidf0Dir = new Vector3(f[0]/3, f[1]/5, 0);
+    }
 
+    public void TouchChange(bool b)
+    {
+        isTouch = b;
+    }
 }
